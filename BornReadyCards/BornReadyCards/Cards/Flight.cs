@@ -9,14 +9,17 @@ using UnityEngine;
 
 namespace BornReadyCards.Cards
 {
-    class Template : CustomCard
+    class Flight : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
+            statModifiers.numberOfJumps = 1;
+            statModifiers.jump = 0.4f;
             UnityEngine.Debug.Log($"[{BornReadyCards.ModInitials}][Card] {GetTitle()} has been setup.");
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
+            gravity.gravityForce = 0;
             UnityEngine.Debug.Log($"[{BornReadyCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -25,11 +28,11 @@ namespace BornReadyCards.Cards
         }
         protected override string GetTitle()
         {
-            return "CardName";
+            return "Flight";
         }
         protected override string GetDescription()
         {
-            return "CardDescription";
+            return "Fly where you want to go, don't fly too fast though :)";
         }
         protected override GameObject GetCardArt()
         {
@@ -37,7 +40,7 @@ namespace BornReadyCards.Cards
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Common;
+            return CardInfo.Rarity.Rare;
         }
         protected override CardInfoStat[] GetStats()
         {
@@ -46,8 +49,8 @@ namespace BornReadyCards.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Effect",
-                    amount = "No",
+                    stat = "Flight",
+                    amount = "yes baby!",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

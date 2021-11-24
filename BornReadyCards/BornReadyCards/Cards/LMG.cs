@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace BornReadyCards.Cards
 {
-    class Template : CustomCard
+    class LMG : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -17,6 +17,12 @@ namespace BornReadyCards.Cards
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
+            gunAmmo.maxAmmo = 100;
+            gun.attackSpeed /= 5;
+            gun.drag += 1f;
+            gun.damage /= 2;
+            gun.projectileSpeed = 2f;
+            characterStats.movementSpeed *= 0.2f;
             UnityEngine.Debug.Log($"[{BornReadyCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -25,11 +31,11 @@ namespace BornReadyCards.Cards
         }
         protected override string GetTitle()
         {
-            return "CardName";
+            return "LMG";
         }
         protected override string GetDescription()
         {
-            return "CardDescription";
+            return "Just a light machine gun";
         }
         protected override GameObject GetCardArt()
         {
@@ -37,7 +43,7 @@ namespace BornReadyCards.Cards
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Common;
+            return CardInfo.Rarity.Uncommon;
         }
         protected override CardInfoStat[] GetStats()
         {
@@ -46,9 +52,30 @@ namespace BornReadyCards.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Effect",
-                    amount = "No",
+                    stat = "Ammo",
+                    amount = "100",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Attack Speed",
+                    amount = "Divided by 5",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = false,
+                    stat = "Damage",
+                    amount = "Divided by 2",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = false,
+                    stat = "Movement speed",
+                    amount = "",
+                    simepleAmount = CardInfoStat.SimpleAmount.aLotLower
                 }
             };
         }

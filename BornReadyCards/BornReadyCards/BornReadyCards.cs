@@ -26,7 +26,12 @@ namespace BornReadyCards
         void Start()
         {
             instance = this;
-            CustomCard.BuildCard<CrazySphere>();
+            CustomCard.BuildCard<CrazyBurst>();
+            CustomCard.BuildCard<CrazyDamage>();
+            CustomCard.BuildCard<Flight>();
+            CustomCard.BuildCard<LMG>();
+            CustomCard.BuildCard<Uzi>();
+            CustomCard.BuildCard<Drunk>();
         }
     }
 }

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace BornReadyCards.Cards
 {
-    class Template : CustomCard
+    class Uzi : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -17,6 +17,11 @@ namespace BornReadyCards.Cards
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
+            gunAmmo.maxAmmo = 10;
+            gun.attackSpeed /= 10;
+            gun.drag += 5f;
+            gun.damage /= 7;
+            gun.projectileSpeed = 1.5f;
             UnityEngine.Debug.Log($"[{BornReadyCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -25,11 +30,11 @@ namespace BornReadyCards.Cards
         }
         protected override string GetTitle()
         {
-            return "CardName";
+            return "Uzi";
         }
         protected override string GetDescription()
         {
-            return "CardDescription";
+            return "A 10 round mag with a really high attackspeed";
         }
         protected override GameObject GetCardArt()
         {
@@ -46,8 +51,22 @@ namespace BornReadyCards.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Effect",
-                    amount = "No",
+                    stat = "Ammo",
+                    amount = "10",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Attack Speed",
+                    amount = "Divided by 10",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = false,
+                    stat = "Damage",
+                    amount = "Divided by 7",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

@@ -9,10 +9,11 @@ using UnityEngine;
 
 namespace BornReadyCards.Cards
 {
-    class Template : CustomCard
+    class Drunk : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
+            statModifiers.movementSpeed *= -1;
             UnityEngine.Debug.Log($"[{BornReadyCards.ModInitials}][Card] {GetTitle()} has been setup.");
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -25,11 +26,11 @@ namespace BornReadyCards.Cards
         }
         protected override string GetTitle()
         {
-            return "CardName";
+            return "Drunk";
         }
         protected override string GetDescription()
         {
-            return "CardDescription";
+            return "Your controls are inverted(a bit buggy)";
         }
         protected override GameObject GetCardArt()
         {

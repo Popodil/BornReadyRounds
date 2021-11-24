@@ -9,14 +9,24 @@ using UnityEngine;
 
 namespace BornReadyCards.Cards
 {
-    class Template : CustomCard
+    class CrazyDamage : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
+            cardInfo.allowMultiple = false;
             UnityEngine.Debug.Log($"[{BornReadyCards.ModInitials}][Card] {GetTitle()} has been setup.");
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
+            foreach (CardInfo card in player.data.currentCards)
+            {
+                if (card.cardName == "Crazy Burst")
+                {
+                    gun.damage *= 10f;
+                    gunAmmo.maxAmmo = 1;
+                    gunAmmo.ammoReg = 1;
+                }
+            }
             UnityEngine.Debug.Log($"[{BornReadyCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -25,11 +35,11 @@ namespace BornReadyCards.Cards
         }
         protected override string GetTitle()
         {
-            return "CardName";
+            return "Crazy Damage";
         }
         protected override string GetDescription()
         {
-            return "CardDescription";
+            return "Combined with Crazy Burst it gives 10x Damage";
         }
         protected override GameObject GetCardArt()
         {
@@ -37,7 +47,7 @@ namespace BornReadyCards.Cards
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Common;
+            return CardInfo.Rarity.Rare;
         }
         protected override CardInfoStat[] GetStats()
         {
@@ -46,8 +56,15 @@ namespace BornReadyCards.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Effect",
-                    amount = "No",
+                    stat = "Damage",
+                    amount = "x10 (only if combined)",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = false,
+                    stat = "Does",
+                    amount = "nothing",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };
